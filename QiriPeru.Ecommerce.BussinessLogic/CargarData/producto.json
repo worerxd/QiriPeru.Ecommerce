@@ -1,0 +1,56 @@
+[
+  {
+    "Nombre": "Puerta principal en madera caoba",
+    "Descripcion": "Medidas: 2.60 m x 1.2 m x 4 cm.",
+    "Stock": 100,
+    "MaterialId": 6,
+    "CategoriaId": 2,
+    "Precio": 360,
+    "Imagen": ""
+  },
+  {
+    "Nombre": "Puerta baño en madera cedro",
+    "Descripcion": "Medidas: 2.2 m x 0.8 m x 4 cm.",
+    "Stock": 20,
+    "MaterialId": 5,
+    "CategoriaId": 3,
+    "Precio": 260,
+    "Imagen": ""
+  },
+  {
+    "Nombre": "Portón seccional en madera tornillo",
+    "Descripcion": "Medidas: 3 m x 4.5 m x 6 cm.",
+    "Stock": 15,
+    "MaterialId": 3,
+    "CategoriaId": 2,
+    "Precio": 280,
+    "Imagen": ""
+  },
+  {
+    "Nombre": "Silla en madera capirona",
+    "Descripcion": "Medidas: 1 m x 40 cm x 40 cm.",
+    "Stock": 30,
+    "MaterialId": 4,
+    "CategoriaId": 1,
+    "Precio": 50,
+    "Imagen": ""
+  },
+  {
+    "Nombre": "Closet en melamine",
+    "Descripcion": "Medidas: 1.8 m x 1.2 m x 60 cm.",
+    "Stock": 600,
+    "MaterialId": 1,
+    "CategoriaId": 6,
+    "Precio": 320,
+    "Imagen": ""
+  },
+  {
+    "Nombre": "Cajas decorarivas en MDF",
+    "Descripcion": "Medidas: 5 cm x 20 cm x 20 cm.",
+    "Stock": 200,
+    "MaterialId": 7,
+    "CategoriaId": 4,
+    "Precio": 80,
+    "Imagen": ""
+  }
+]
