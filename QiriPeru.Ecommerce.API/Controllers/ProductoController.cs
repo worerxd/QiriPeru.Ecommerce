@@ -19,6 +19,7 @@ namespace QiriPeru.Ecommerce.API.Controllers
         private readonly IGenericRepository<Producto> _productoRepository;
         private readonly IMapper _mapper;
 
+
         public ProductoController(IGenericRepository<Producto> productoRepository, IMapper mapper)
         {
             _productoRepository = productoRepository;
@@ -60,7 +61,8 @@ namespace QiriPeru.Ecommerce.API.Controllers
 
             if (producto == null)
             {
-                return NotFound(new CodeErrorResponse(404, "El producto no existe"));
+               // return NotFound(new CodeErrorResponse(404, "El producto no existe"));
+                return NotFound(new CodeErrorResponse(404));
             }
 
             return _mapper.Map<Producto, ProductoDto>(producto);
