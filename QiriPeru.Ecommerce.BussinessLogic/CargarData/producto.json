@@ -52,5 +52,23 @@
     "CategoriaId": 4,
     "Precio": 80,
     "Imagen": ""
+  },
+  {
+    "Nombre": "Cajas decorarivas en melamine xd",
+    "Descripcion": "Medidas: 5 cm x 20 cm x 20 cm.",
+    "Stock": 20,
+    "MaterialId": 1,
+    "CategoriaId": 6,
+    "Precio": 800,
+    "Imagen": ""
+  },
+  {
+    "Nombre": "Silla en madera xxxxx",
+    "Descripcion": "Medidas: 1 m x 40 cm x 40 cm.",
+    "Stock": 30,
+    "MaterialId": 4,
+    "CategoriaId": 1,
+    "Precio": 50,
+    "Imagen": ""
   }
 ]
