@@ -52,5 +52,14 @@
     "CategoriaId": 4,
     "Precio": 80,
     "Imagen": ""
+  },
+  {
+    "Nombre": "Repostero en melamine",
+    "Descripcion": "Medidas: 200 cm x 80 cm x 30 cm.",
+    "Stock": 10,
+    "MaterialId": 1,
+    "CategoriaId": 6,
+    "Precio": 500,
+    "Imagen": ""
   }
 ]
