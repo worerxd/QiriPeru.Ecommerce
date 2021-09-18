@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using QiriPeru.Ecommerce.BussinessLogic.Data;
+using QiriPeru.Ecommerce.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,11 @@ namespace QiriPeru.Ecommerce.API
                     var context = services.GetRequiredService<QiriPeruDbContext>();
                     await context.Database.MigrateAsync();
                     await QiriPeruDbContextData.CargarDataAsync(context, loggerFactory);
+
+                    var userManager = services.GetRequiredService<UserManager<Usuario>>();
+                    var identityContext = services.GetRequiredService<SeguridadDbContext>();
+                    await identityContext.Database.MigrateAsync();
+                    await SeguridadDbContextData.SeedUserAsync(userManager);
                 }
                 catch (Exception e)
                 {

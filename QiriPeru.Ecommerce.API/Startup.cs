@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,7 @@ using QiriPeru.Ecommerce.API.Dtos;
 using QiriPeru.Ecommerce.API.Middleware;
 using QiriPeru.Ecommerce.BussinessLogic.Data;
 using QiriPeru.Ecommerce.BussinessLogic.Logic;
+using QiriPeru.Ecommerce.Core.Entities;
 using QiriPeru.Ecommerce.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,11 +32,24 @@ namespace QiriPeru.Ecommerce.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = services.AddIdentityCore<Usuario>();
+            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddEntityFrameworkStores<SeguridadDbContext>();
+            builder.AddSignInManager<SignInManager<Usuario>>();
+
+            services.AddAuthentication();
+
+
             services.AddAutoMapper(typeof(MappingProfiles));
 
             services.AddDbContext<QiriPeruDbContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddDbContext<SeguridadDbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("IdentitySeguridad"));
             });
 
             services.AddTransient<IProductoRepository, ProductoRepository>();
