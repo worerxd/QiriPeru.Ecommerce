@@ -19,6 +19,7 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Data
                     Nombre = "Walther",
                     Apellido = "Vergaray",
                     UserName = "worer",
+                    Email = "walther.vergaray@gmail.com",
                     Direccion = new Direccion
                     {
                         Calle = "Maria Parado de Bellido Mz.O Lt.8",
