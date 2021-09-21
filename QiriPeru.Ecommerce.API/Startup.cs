@@ -15,6 +15,7 @@ using QiriPeru.Ecommerce.BussinessLogic.Data;
 using QiriPeru.Ecommerce.BussinessLogic.Logic;
 using QiriPeru.Ecommerce.Core.Entities;
 using QiriPeru.Ecommerce.Core.Interfaces;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,10 +69,18 @@ namespace QiriPeru.Ecommerce.API
                 opt.UseSqlServer(Configuration.GetConnectionString("IdentitySeguridad"));
             });
 
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var configuration = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
             services.AddTransient<IProductoRepository, ProductoRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddControllers();
+
+            services.AddScoped<ICarritoCompraRepository, CarritoCompraRepository>();
 
             services.AddCors(opt =>
            {

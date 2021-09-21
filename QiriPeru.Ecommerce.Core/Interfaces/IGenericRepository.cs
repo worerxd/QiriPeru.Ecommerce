@@ -19,5 +19,9 @@ namespace QiriPeru.Ecommerce.Core.Interfaces
         Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecification<T> spec);
 
         Task<int> CountAsync(ISpecification<T> spec);
+
+        Task<int> Add(T entity);
+
+        Task<int> Update(T entity);
     }
 }
