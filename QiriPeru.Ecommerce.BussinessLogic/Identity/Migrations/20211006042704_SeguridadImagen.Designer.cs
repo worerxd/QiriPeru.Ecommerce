@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QiriPeru.Ecommerce.BussinessLogic.Data;
 
 namespace QiriPeru.Ecommerce.BussinessLogic.Identity.Migrations
 {
     [DbContext(typeof(SeguridadDbContext))]
-    partial class SeguridadDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211006042704_SeguridadImagen")]
+    partial class SeguridadImagen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

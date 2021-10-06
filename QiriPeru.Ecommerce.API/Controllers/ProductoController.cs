@@ -33,10 +33,18 @@ namespace QiriPeru.Ecommerce.API.Controllers
             var productos = await _productoRepository.GetAllWithSpecAsync(spec);
 
             var specCount = new ProductoForCountingSpecification(productoParams);
-            var totalProductos = await _productoRepository.CountAsync(specCount);
+            var totalProductos = await _productoRepository.CountAsync(specCount);      
+            
+            var totalPages = 0;
 
-            var rounded = Math.Ceiling(Convert.ToDecimal(totalProductos / productoParams.PageSize));
-            var totalPages = Convert.ToInt32(rounded);
+            if (totalProductos % productoParams.PageSize != 0)
+            {
+                totalPages = (totalProductos / productoParams.PageSize) + 1;
+            }
+            else
+            {
+                totalPages = totalProductos / productoParams.PageSize;
+            }
 
             var data = _mapper.Map<IReadOnlyList<Producto>, IReadOnlyList<ProductoDto>>(productos);
 

@@ -21,13 +21,15 @@ namespace QiriPeru.Ecommerce.API.Controllers
         private readonly SignInManager<Usuario> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-        public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager,ITokenService tokenService, IMapper mapper)
+        public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, ITokenService tokenService, IMapper mapper, IPasswordHasher<Usuario> passwordHasher)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _mapper = mapper;
+            _passwordHasher = passwordHasher;
         }
 
 
@@ -36,7 +38,7 @@ namespace QiriPeru.Ecommerce.API.Controllers
         {
             var usuario = await _userManager.FindByEmailAsync(loginDto.Email);
 
-            if(User == null)
+            if (User == null)
             {
                 return Unauthorized(new CodeErrorResponse(401));
             }
@@ -87,6 +89,43 @@ namespace QiriPeru.Ecommerce.API.Controllers
             };
         }
 
+
+        [HttpPut("actualizar/{id}")]
+
+        public async Task<ActionResult<UsuarioDto>> Actualizar(string id, RegistrarDto registrarDto)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario == null)
+            {
+                return NotFound(new CodeErrorResponse(404, "El usuario no existe"));
+            }
+
+            usuario.Nombre = registrarDto.Nombre;
+            usuario.Apellido = registrarDto.Apellido;
+            usuario.PasswordHash = _passwordHasher.HashPassword(usuario, registrarDto.Password);
+
+            var resultado = await _userManager.UpdateAsync(usuario);
+
+            if (!resultado.Succeeded)
+            {
+                return BadRequest(new CodeErrorResponse(400, "No se pudo actualizar el usuario"));
+            }
+
+            return new UsuarioDto
+            {
+                Nombre = usuario.Nombre,
+                Apellido = usuario.Apellido,
+                Email = usuario.Email,
+                UserName = usuario.UserName,
+                Token = _tokenService.CreateToken(usuario),
+                Imagen = usuario.Imagen
+            };
+
+
+        }
+
+
+
         [Authorize]
         [HttpGet]
         public async Task<ActionResult<UsuarioDto>> GetUsuario()
@@ -120,10 +159,10 @@ namespace QiriPeru.Ecommerce.API.Controllers
         [Authorize]
         [HttpGet("direccion")]
         public async Task<ActionResult<DireccionDto>> GetDireccion()
-        {            
+        {
             var usuario = await _userManager.BuscarUsuarioConDireccionAsync(HttpContext.User);
 
-            return _mapper.Map<Direccion,DireccionDto>(usuario.Direccion);
+            return _mapper.Map<Direccion, DireccionDto>(usuario.Direccion);
         }
 
 
