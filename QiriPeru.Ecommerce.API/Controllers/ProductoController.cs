@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QiriPeru.Ecommerce.API.Dtos;
 using QiriPeru.Ecommerce.API.Errors;
@@ -75,7 +76,7 @@ namespace QiriPeru.Ecommerce.API.Controllers
             
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<ActionResult<Producto>> Post(Producto producto)
         {
@@ -90,6 +91,7 @@ namespace QiriPeru.Ecommerce.API.Controllers
         }
 
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Producto>> Put (int id, Producto producto)
         {

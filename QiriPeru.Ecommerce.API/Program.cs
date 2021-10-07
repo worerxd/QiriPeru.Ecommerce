@@ -32,8 +32,9 @@ namespace QiriPeru.Ecommerce.API
 
                     var userManager = services.GetRequiredService<UserManager<Usuario>>();
                     var identityContext = services.GetRequiredService<SeguridadDbContext>();
+                    var roleManager = services.GetRequiredService <RoleManager<IdentityRole>>();
                     await identityContext.Database.MigrateAsync();
-                    await SeguridadDbContextData.SeedUserAsync(userManager);
+                    await SeguridadDbContextData.SeedUserAsync(userManager,roleManager);
                 }
                 catch (Exception e)
                 {

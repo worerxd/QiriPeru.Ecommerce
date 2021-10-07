@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -41,6 +43,7 @@ namespace QiriPeru.Ecommerce.API
 
             var builder = services.AddIdentityCore<Usuario>();
             builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddRoles<IdentityRole>();
             builder.AddEntityFrameworkStores<SeguridadDbContext>();
             builder.AddSignInManager<SignInManager<Usuario>>();
 
@@ -75,8 +78,11 @@ namespace QiriPeru.Ecommerce.API
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
+            services.TryAddSingleton<ISystemClock, SystemClock>();
+
             services.AddTransient<IProductoRepository, ProductoRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IGenericSeguridadRepository<>), typeof(GenericSeguridadRepository<>));
 
             services.AddControllers();
 

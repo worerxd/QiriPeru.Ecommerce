@@ -10,7 +10,7 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Data
 {
     public class SeguridadDbContextData
     {
-        public static async Task SeedUserAsync(UserManager<Usuario> userManager)
+        public static async Task SeedUserAsync(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (!userManager.Users.Any())
             {
@@ -31,6 +31,18 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Data
 
                 await userManager.CreateAsync(usuario, "Su1c1d4s1!");
             }
+
+            if(!roleManager.Roles.Any())
+            {
+                var role = new IdentityRole
+                {
+                    Name = "ADMIN"
+                };
+
+                await roleManager.CreateAsync(role);
+            }
+
+
         }
     }
 }

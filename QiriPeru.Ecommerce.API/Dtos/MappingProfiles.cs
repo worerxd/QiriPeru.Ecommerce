@@ -16,6 +16,8 @@ namespace QiriPeru.Ecommerce.API.Dtos
                 .ForMember(p => p.MaterialNombre, x => x.MapFrom(a => a.Material.Nombre));
 
             CreateMap<Direccion, DireccionDto>().ReverseMap();
+
+            CreateMap<Usuario, UsuarioDto>().ReverseMap();
         }
     }
 }
