@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using QiriPeru.Ecommerce.Core.Entities;
+using QiriPeru.Ecommerce.Core.Entities.OrdenCompra;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,6 +58,21 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Data
                     await context.SaveChangesAsync();
 
                 }
+
+                if (!context.TipoEnvios.Any())
+                {
+                    var tipoEnvioData = File.ReadAllText("../QiriPeru.Ecommerce.BussinessLogic/CargarData/tipoenvio.json");
+                    var tipoEnvios = JsonSerializer.Deserialize<List<TipoEnvio>>(tipoEnvioData);
+
+                    foreach (var tipoEnvio in tipoEnvios)
+                    {
+                        context.TipoEnvios.Add(tipoEnvio);
+                    }
+
+                    await context.SaveChangesAsync();
+
+                }
+
 
             }
             catch (Exception e)

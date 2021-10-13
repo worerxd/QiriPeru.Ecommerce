@@ -13,6 +13,8 @@ namespace QiriPeru.Ecommerce.Core.Entities
         public string Ciudad { get; set; }
         public string Departamento{ get; set; }
         public string CodigoPostal { get; set; }
+        public string Pais { get; set; }
+
 
         public string UsuarioId { get; set; }
 

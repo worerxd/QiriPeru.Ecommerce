@@ -40,6 +40,7 @@ namespace QiriPeru.Ecommerce.API
         {
 
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IOrdenCompraService, OrdenCompraService>();
 
             var builder = services.AddIdentityCore<Usuario>();
             builder = new IdentityBuilder(builder.UserType, builder.Services);

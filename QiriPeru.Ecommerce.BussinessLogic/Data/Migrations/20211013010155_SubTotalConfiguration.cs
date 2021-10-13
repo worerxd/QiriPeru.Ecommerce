@@ -1,0 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace QiriPeru.Ecommerce.BussinessLogic.Data.Migrations
+{
+    public partial class SubTotalConfiguration : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+
+        }
+    }
+}

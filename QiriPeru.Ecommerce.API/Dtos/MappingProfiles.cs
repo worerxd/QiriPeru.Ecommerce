@@ -18,6 +18,8 @@ namespace QiriPeru.Ecommerce.API.Dtos
             CreateMap<Direccion, DireccionDto>().ReverseMap();
 
             CreateMap<Usuario, UsuarioDto>().ReverseMap();
+
+            CreateMap<DireccionDto, Core.Entities.OrdenCompra.Direccion>();
         }
     }
 }
