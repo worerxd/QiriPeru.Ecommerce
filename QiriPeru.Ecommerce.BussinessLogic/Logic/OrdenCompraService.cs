@@ -1,4 +1,5 @@
-﻿using QiriPeru.Ecommerce.Core.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using QiriPeru.Ecommerce.Core.Entities;
 using QiriPeru.Ecommerce.Core.Entities.OrdenCompra;
 using QiriPeru.Ecommerce.Core.Interfaces;
 using QiriPeru.Ecommerce.Core.Specifications;
@@ -14,11 +15,13 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
     {              
         private readonly ICarritoCompraRepository _carritoCompraRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<Usuario> _userManager;
 
-        public OrdenCompraService(ICarritoCompraRepository carritoCompraRepository, IUnitOfWork unitOfWork)
+        public OrdenCompraService(ICarritoCompraRepository carritoCompraRepository, IUnitOfWork unitOfWork, UserManager<Usuario> userManager)
         {
             _carritoCompraRepository = carritoCompraRepository;
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
         public async Task<OrdenCompras> AddOrdenCompraAsync(string compradorEmail, int tipoEnvio, string carritoId, Core.Entities.OrdenCompra.Direccion direccion)
@@ -36,11 +39,13 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
                 items.Add(ordenItem);
             }
 
+            var usuario = await _userManager.FindByEmailAsync(compradorEmail);
+
             var tipoEnvioEntity = await _unitOfWork.Repository<TipoEnvio>().GetByIdAsync(tipoEnvio);
 
             var subTotal = items.Sum(item => item.Precio * item.Cantidad);
 
-            var ordenCompra = new OrdenCompras(compradorEmail, direccion, tipoEnvioEntity, items, subTotal);
+            var ordenCompra = new OrdenCompras(compradorEmail, direccion, tipoEnvioEntity, items, subTotal,usuario);
 
             _unitOfWork.Repository<OrdenCompras>().AddEntity(ordenCompra);
 
@@ -55,6 +60,13 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
 
             return ordenCompra;
 
+        }
+
+        public async Task<IReadOnlyList<OrdenCompras>> GetOrdenComprasAll()
+        {
+            var spec = new OrdenCompraWithItemsSpecification();
+
+            return await _unitOfWork.Repository<OrdenCompras>().GetAllWithSpecAsync(spec);
         }
 
         public async Task<OrdenCompras> GetOrdenComprasByIdAsync(int id, string email)

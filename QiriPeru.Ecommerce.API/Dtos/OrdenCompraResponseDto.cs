@@ -9,6 +9,7 @@ namespace QiriPeru.Ecommerce.API.Dtos
     public class OrdenCompraResponseDto
     {
         public int Id { get; set; }
+        public string FullName { get; set; }
         public string CompradorEmail { get; set; }
         public DateTimeOffset OrdenCompraFecha { get; set; }
         public Direccion DireccionEnvio { get; set; }

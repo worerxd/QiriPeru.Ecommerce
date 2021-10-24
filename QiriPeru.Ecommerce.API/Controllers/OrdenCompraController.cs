@@ -52,6 +52,15 @@ namespace QiriPeru.Ecommerce.API.Controllers
             return Ok(_mapper.Map<IReadOnlyList<OrdenCompras>, IReadOnlyList<OrdenCompraResponseDto>>(ordenCompras));
         }
 
+        [Authorize(Roles = "ADMIN")]
+        [HttpGet("All")]
+        public async Task<ActionResult<IReadOnlyList<OrdenCompraResponseDto>>> GetOrdenComprasAll()
+        {            
+            var ordenCompras = await _ordenCompraService.GetOrdenComprasAll();
+
+            return Ok(_mapper.Map<IReadOnlyList<OrdenCompras>, IReadOnlyList<OrdenCompraResponseDto>>(ordenCompras));
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<OrdenCompraResponseDto>> GetOrdenComprasById(int id)
         {
@@ -71,6 +80,8 @@ namespace QiriPeru.Ecommerce.API.Controllers
         {
             return Ok(await _ordenCompraService.GetTipoEnvios());
         }
+
+        
 
     }
 }

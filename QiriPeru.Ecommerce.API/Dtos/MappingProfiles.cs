@@ -24,7 +24,8 @@ namespace QiriPeru.Ecommerce.API.Dtos
 
             CreateMap<OrdenCompras, OrdenCompraResponseDto>()
                 .ForMember(o => o.TipoEnvio, x => x.MapFrom(y => y.TipoEnvio.Nombre))
-                .ForMember(o => o.TipoEnvioPrecio, x => x.MapFrom(y => y.TipoEnvio.Precio));
+                .ForMember(o => o.TipoEnvioPrecio, x => x.MapFrom(y => y.TipoEnvio.Precio))
+                .ForMember(o => o.FullName, x => x.MapFrom(y => y.Usuario.Nombre + " " + y.Usuario.Apellido)).ReverseMap();
 
             CreateMap<OrdenItem, OrdenItemResponseDto>()
                 .ForMember(o => o.ProductoId, x => x.MapFrom(y => y.ItemOrdenado.ProductoItemId))

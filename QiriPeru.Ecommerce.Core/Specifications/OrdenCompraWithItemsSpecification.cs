@@ -14,6 +14,7 @@ namespace QiriPeru.Ecommerce.Core.Specifications
         {
             AddInclude(o => o.OrdenItems);
             AddInclude(o => o.TipoEnvio);
+            AddInclude(o => o.Usuario);
             AddOrderByDescending(o => o.OrdenCompraFecha);
         }
 
@@ -21,6 +22,15 @@ namespace QiriPeru.Ecommerce.Core.Specifications
         {
             AddInclude(o => o.OrdenItems);
             AddInclude(o => o.TipoEnvio);
+            AddInclude(o => o.Usuario);
+            AddOrderByDescending(o => o.OrdenCompraFecha);
+        }
+
+        public OrdenCompraWithItemsSpecification() : base()
+        {
+            AddInclude(o => o.OrdenItems);
+            AddInclude(o => o.TipoEnvio);
+            AddInclude(o => o.Usuario);
             AddOrderByDescending(o => o.OrdenCompraFecha);
         }
 
