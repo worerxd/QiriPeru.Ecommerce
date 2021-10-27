@@ -12,16 +12,14 @@ namespace QiriPeru.Ecommerce.Core.Entities.OrdenCompra
         {
 
         }
-        public OrdenCompras(string compradorEmail, Direccion direccionEnvio, TipoEnvio tipoEnvio, IReadOnlyList<OrdenItem> ordenItems, decimal subTotal, Usuario usuario)
+        public OrdenCompras(string compradorEmail, Direccion direccionEnvio, TipoEnvio tipoEnvio, IReadOnlyList<OrdenItem> ordenItems, decimal subTotal)
         {
             CompradorEmail = compradorEmail;
             DireccionEnvio = direccionEnvio;
             TipoEnvio = tipoEnvio;
             OrdenItems = ordenItems;
-            SubTotal = subTotal;
-            Usuario = usuario;
-        }
-        public Usuario Usuario { get; set; }
+            SubTotal = subTotal;            
+        }        
         public string CompradorEmail { get; set; }
         public DateTimeOffset OrdenCompraFecha { get; set; } = DateTimeOffset.Now;
         public Direccion DireccionEnvio { get; set; }

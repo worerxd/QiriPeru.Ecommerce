@@ -13,24 +13,21 @@ namespace QiriPeru.Ecommerce.Core.Specifications
         public OrdenCompraWithItemsSpecification(string email) : base(o => o.CompradorEmail == email)
         {
             AddInclude(o => o.OrdenItems);
-            AddInclude(o => o.TipoEnvio);
-            AddInclude(o => o.Usuario);
+            AddInclude(o => o.TipoEnvio);            
             AddOrderByDescending(o => o.OrdenCompraFecha);
         }
 
         public OrdenCompraWithItemsSpecification(int id, string email) : base(o => o.Id == id && o.CompradorEmail == email)
         {
             AddInclude(o => o.OrdenItems);
-            AddInclude(o => o.TipoEnvio);
-            AddInclude(o => o.Usuario);
+            AddInclude(o => o.TipoEnvio);            
             AddOrderByDescending(o => o.OrdenCompraFecha);
         }
 
         public OrdenCompraWithItemsSpecification() : base()
         {
             AddInclude(o => o.OrdenItems);
-            AddInclude(o => o.TipoEnvio);
-            AddInclude(o => o.Usuario);
+            AddInclude(o => o.TipoEnvio);           
             AddOrderByDescending(o => o.OrdenCompraFecha);
         }
 

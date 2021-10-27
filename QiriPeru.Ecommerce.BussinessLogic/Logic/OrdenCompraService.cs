@@ -28,6 +28,11 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
         {
             var carritoCompra = await _carritoCompraRepository.GetCarritoCompraAsync(carritoId);
 
+            if(carritoCompra == null)
+            {
+                return null;
+            }
+
             var items = new List<OrdenItem>();
 
             foreach (var item in carritoCompra.Items)
@@ -37,15 +42,13 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
                 var ordenItem = new OrdenItem(itemOrdenado, productoItem.Precio, item.Cantidad);
 
                 items.Add(ordenItem);
-            }
-
-            var usuario = await _userManager.FindByEmailAsync(compradorEmail);
+            }            
 
             var tipoEnvioEntity = await _unitOfWork.Repository<TipoEnvio>().GetByIdAsync(tipoEnvio);
 
             var subTotal = items.Sum(item => item.Precio * item.Cantidad);
 
-            var ordenCompra = new OrdenCompras(compradorEmail, direccion, tipoEnvioEntity, items, subTotal,usuario);
+            var ordenCompra = new OrdenCompras(compradorEmail, direccion, tipoEnvioEntity, items, subTotal);
 
             _unitOfWork.Repository<OrdenCompras>().AddEntity(ordenCompra);
 

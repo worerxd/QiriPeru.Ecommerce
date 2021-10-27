@@ -18,6 +18,9 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Data.Configuration
                x.WithOwner();
            });
 
+            
+                
+
             builder.Property(s => s.Status)
                 .HasConversion(
                 o => o.ToString(), 
