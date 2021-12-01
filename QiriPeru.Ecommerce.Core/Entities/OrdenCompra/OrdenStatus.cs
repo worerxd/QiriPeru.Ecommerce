@@ -14,6 +14,10 @@ namespace QiriPeru.Ecommerce.Core.Entities.OrdenCompra
         [EnumMember(Value ="El pago fue recibido")]
         PagoRecibido,
         [EnumMember(Value = "El pago tuvo errores")]
-        PagoFallo
+        PagoFallo,
+        [EnumMember(Value = "La orden fue entregada")]
+        Entregado,
+        [EnumMember(Value = "La orden fue cancelada")]
+        Cancelado
     }
 }

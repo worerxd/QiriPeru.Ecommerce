@@ -296,8 +296,8 @@ namespace QiriPeru.Ecommerce.API.Controllers
         }
 
 
-        [HttpGet("emailvalido")]
-        public async Task<ActionResult<bool>> ValidarEmail([FromQuery] string email)
+        [HttpGet("emailvalido/{email}")]
+        public async Task<ActionResult<bool>> ValidarEmail(string email)
         {
             var usuario = await _userManager.FindByEmailAsync(email);
 

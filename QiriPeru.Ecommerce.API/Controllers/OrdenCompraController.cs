@@ -54,6 +54,17 @@ namespace QiriPeru.Ecommerce.API.Controllers
             
         }
 
+        [Authorize(Roles = "ADMIN")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult<OrdenCompraResponseDto>> UpdateOrdenCompra(int id)
+        {
+           
+            var ordenCompraUpdated = await _ordenCompraService.UpdateOrdenCompraByIdAsync(id);
+
+            return _mapper.Map<OrdenCompras, OrdenCompraResponseDto>(ordenCompraUpdated);
+            
+        }
+
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<OrdenCompraResponseDto>>> GetOrdenCompras()
         {
@@ -78,7 +89,7 @@ namespace QiriPeru.Ecommerce.API.Controllers
         public async Task<ActionResult<OrdenCompraResponseDto>> GetOrdenComprasById(int id)
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-            var ordenCompra = await _ordenCompraService.GetOrdenComprasByIdAsync(id,email);
+            var ordenCompra = await _ordenCompraService.GetOrdenComprasByIdAsync(id);
             var usuario = await _userManager.FindByEmailAsync(email);
 
             if(ordenCompra == null)

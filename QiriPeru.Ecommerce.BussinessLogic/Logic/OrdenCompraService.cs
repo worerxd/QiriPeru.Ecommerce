@@ -65,6 +65,22 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
 
         }
 
+        public async Task<OrdenCompras> UpdateOrdenCompraByIdAsync(int id)
+        {
+            var spec = new OrdenCompraWithItemsSpecification(id);
+
+            var ordenCompra = await _unitOfWork.Repository<OrdenCompras>().GetByIdWithSpecAsync(spec);
+
+            if (ordenCompra.Status == OrdenStatus.Pendiente)
+                ordenCompra.Status = OrdenStatus.Entregado;
+            else if (ordenCompra.Status == OrdenStatus.Entregado)
+                ordenCompra.Status = OrdenStatus.Cancelado;
+
+            await _unitOfWork.Repository<OrdenCompras>().Update(ordenCompra);
+
+            return ordenCompra;
+        }
+
         public async Task<IReadOnlyList<OrdenCompras>> GetOrdenComprasAll()
         {
             var spec = new OrdenCompraWithItemsSpecification();
@@ -72,9 +88,9 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
             return await _unitOfWork.Repository<OrdenCompras>().GetAllWithSpecAsync(spec);
         }
 
-        public async Task<OrdenCompras> GetOrdenComprasByIdAsync(int id, string email)
+        public async Task<OrdenCompras> GetOrdenComprasByIdAsync(int id)
         {
-            var spec = new OrdenCompraWithItemsSpecification(id, email);
+            var spec = new OrdenCompraWithItemsSpecification(id);
 
             return await _unitOfWork.Repository<OrdenCompras>().GetByIdWithSpecAsync(spec);
         }
@@ -90,5 +106,7 @@ namespace QiriPeru.Ecommerce.BussinessLogic.Logic
         {
             return await _unitOfWork.Repository<TipoEnvio>().GetAllAsync();
         }
+
+        
     }
 }

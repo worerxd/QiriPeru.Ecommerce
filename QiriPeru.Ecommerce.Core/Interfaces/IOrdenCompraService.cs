@@ -13,7 +13,9 @@ namespace QiriPeru.Ecommerce.Core.Interfaces
 
         Task<IReadOnlyList<OrdenCompras>> GetOrdenComprasByUserEmailAsync(string email);
 
-        Task<OrdenCompras> GetOrdenComprasByIdAsync(int id, string email);
+        Task<OrdenCompras> GetOrdenComprasByIdAsync(int id);
+
+        Task<OrdenCompras> UpdateOrdenCompraByIdAsync(int id);
 
         Task<IReadOnlyList<OrdenCompras>> GetOrdenComprasAll();
 
